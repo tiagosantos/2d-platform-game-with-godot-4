@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://djqs05akbm7lt"]
+[gd_scene load_steps=14 format=3 uid="uid://djqs05akbm7lt"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_a0frf"]
 [ext_resource type="Texture2D" uid="uid://cp00vosbn37bg" path="res://assets/Sprite Pack 2/2 - Mr. Mochi/Idle (32 x 32).png" id="2_q80mc"]
+[ext_resource type="Texture2D" uid="uid://bf26sikobmkpm" path="res://assets/Sprite Pack 2/2 - Mr. Mochi/Running (32 x 32).png" id="3_1aex4"]
+[ext_resource type="Texture2D" uid="uid://dr5lus6iuph2" path="res://assets/Sprite Pack 2/2 - Mr. Mochi/Jumping (32 x 32).png" id="3_cgjp8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_or4h2"]
 radius = 8.0
@@ -15,6 +17,26 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("2_q80mc")
 region = Rect2(32, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qioi8"]
+atlas = ExtResource("3_cgjp8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swxnw"]
+atlas = ExtResource("3_1aex4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oep7b"]
+atlas = ExtResource("3_1aex4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_riwct"]
+atlas = ExtResource("3_1aex4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k76la"]
+atlas = ExtResource("3_1aex4")
+region = Rect2(96, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_sgk5n"]
 animations = [{
 "frames": [{
@@ -27,24 +49,50 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qioi8")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swxnw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oep7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_riwct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k76la")
+}],
+"loop": true,
+"name": &"run",
+"speed": 8.0
 }]
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_a0frf")
 
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2(1, -8)
+position = Vector2(1, -10)
 shape = SubResource("CapsuleShape2D_or4h2")
-
-[node name="animated" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, -16)
-sprite_frames = SubResource("SpriteFrames_sgk5n")
-animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.736259
 
 [node name="camera" type="Camera2D" parent="."]
 limit_left = 0
 limit_smoothed = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[node name="animated" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -16)
+sprite_frames = SubResource("SpriteFrames_sgk5n")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="animator" type="AnimationPlayer" parent="."]
