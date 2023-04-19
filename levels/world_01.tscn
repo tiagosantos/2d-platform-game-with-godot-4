@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://d2xd10ryvfj5y"]
+[gd_scene load_steps=10 format=3 uid="uid://d2xd10ryvfj5y"]
 
 [ext_resource type="Texture2D" uid="uid://c6ar3ahc03yqc" path="res://assets/Seasonal Tilesets/1 - Grassland/Terrain (16 x 16).png" id="1_8oo6y"]
-[ext_resource type="Texture2D" uid="uid://cp00vosbn37bg" path="res://assets/Sprite Pack 2/2 - Mr. Mochi/Idle (32 x 32).png" id="1_gkvnh"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_u2j07"]
 [ext_resource type="Texture2D" uid="uid://oea7mmsej1k4" path="res://assets/Seasonal Tilesets/1 - Grassland/Grassland_entities (16 x 16).png" id="2_elyfu"]
+[ext_resource type="PackedScene" uid="uid://djqs05akbm7lt" path="res://actors/player.tscn" id="3_4f1c5"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_fxdpq"]
 tile_data = PackedInt32Array(0, 589827, 1)
@@ -193,33 +192,6 @@ pattern_0 = SubResource("TileMapPattern_fxdpq")
 pattern_1 = SubResource("TileMapPattern_njbhy")
 pattern_2 = SubResource("TileMapPattern_p4evl")
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_or4h2"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lskox"]
-atlas = ExtResource("1_gkvnh")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nh46l"]
-atlas = ExtResource("1_gkvnh")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_sgk5n"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lskox")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nh46l")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f6otl"]
-size = Vector2(501, 20)
-
 [node name="World-01" type="Node2D"]
 position = Vector2(245, 236)
 
@@ -236,21 +208,4 @@ layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(131062, 589827, 1, 65539, 327683, 1, 131066, 65539, 1)
 
-[node name="player" type="CharacterBody2D" parent="."]
-script = ExtResource("1_u2j07")
-
-[node name="collision" type="CollisionShape2D" parent="player"]
-shape = SubResource("CapsuleShape2D_or4h2")
-
-[node name="animated" type="AnimatedSprite2D" parent="player"]
-sprite_frames = SubResource("SpriteFrames_sgk5n")
-animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.313963
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(15.5, 58)
-shape = SubResource("RectangleShape2D_f6otl")
-debug_color = Color(0, 0.6, 0.701961, 0.419608)
+[node name="player" parent="." instance=ExtResource("3_4f1c5")]
